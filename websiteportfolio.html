@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohith Chandra | Portfolio</title>
+    <link rel="stylesheet" href="styleportfolio.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">Mohith Chandra</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="hero-center">
+            <p class="tagline">Welcome to my portfolio!</p>
+
+            <h1>Hello, my name’s <span>Mohith Chandra.</span></h1>
+
+            <p class="subtitle">
+                A passionate B.Sc AIML student from Kristu Jayanti University,
+                focused on AI, coding, and modern web development.
+            </p>
+
+            <div class="buttons">
+                <button class="btn-primary">Download CV</button>
+                <button class="btn-secondary" onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">
+                    See My Work
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section">
+        <h2>About Me</h2>
+        <p>
+            I am Mohith Chandra, a B.Sc AIML student at Kristu Jayanti University. 
+            I have a strong interest in Artificial Intelligence, Machine Learning,
+            and web development. I enjoy building real-world AI applications and solving problems through code.
+            <br><br>
+            I am actively building personal projects such as <b>SAKHĀ AI — a personal voice assistant</b>, 
+            and I have won 1st Place in an Inter-University Coding Competition (Code Swing),
+            where my teammate and I built a working website in Notepad during the event.
+            <br><br>
+            My goal is to become a skilled AI engineer and full-stack developer.
+        </p>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="section">
+        <h2>Skills</h2>
+
+        <div class="skills-grid">
+            <div class="skill-card">C Programming</div>
+            <div class="skill-card">Python</div>
+            <div class="skill-card">SQL</div>
+            <div class="skill-card">MongoDB</div>
+            <div class="skill-card">HTML5</div>
+            <div class="skill-card">CSS3</div>
+            <div class="skill-card">JavaScript (Basics)</div>
+            <div class="skill-card">R Studio</div>
+            <div class="skill-card">AI & ML Fundamentals</div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="section">
+        <h2>Projects</h2>
+
+        <div class="project-card">
+            <h3>SAKHĀ AI — Personal Voice Assistant</h3>
+            <p>Built using Python, SpeechRecognition, pyttsx3, and offline processing. 
+               Capable of responding to commands, opening apps, reading messages, and more.</p>
+        </div>
+
+        <div class="project-card">
+            <h3>Code Swing — Inter-University Winning Project</h3>
+            <p>Won 1st place in an inter-university competition.  
+               We cleared quiz rounds, used ChatGPT for AI debugging,
+               and built a functional website in Notepad under pressure.</p>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section">
+        <h2>Contact Me</h2>
+
+        <p>Email: <b>mohithchandra2007@gmail.com</b></p>
+        <p>LinkedIn: 
+            <a href="https://www.linkedin.com/in/mohith-chandra-65115721b" target="_blank">
+                Click Here
+            </a>
+        </p>
+
+        <!-- CONTACT FORM -->
+        <form class="contact-form" id="contactForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn-primary">Send Message</button>
+        </form>
+
+        <p id="statusMsg" style="margin-top:12px; font-weight:bold;"></p>
+    </section>
+
+    <!-- CONTACT FORM SCRIPT -->
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const data = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                message: document.getElementById("message").value
+            };
+
+            try {
+                const res = await fetch("http://localhost:5000/api/contact", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+
+                if (res.ok) {
+                    document.getElementById("statusMsg").innerHTML = "✅ Message Sent Successfully!";
+                    document.getElementById("contactForm").reset();
+                } else {
+                    document.getElementById("statusMsg").innerHTML = "❌ Something went wrong!";
+                }
+            } catch (err) {
+                document.getElementById("statusMsg").innerHTML = "⚠️ Server not responding.";
+            }
+        });
+    </script>
+
+</body>
+</html>
